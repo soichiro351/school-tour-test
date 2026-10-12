@@ -1,4 +1,4 @@
-import {validateTour,safeExternalUrl} from './schema.js';
+import {validateTour,safeExternalUrl} from './schema.js?v=1.6';
 import {createTourViewer} from './viewer.js';
 import {createMapController} from './map.js';
 const $=id=>document.getElementById(id);
@@ -21,13 +21,18 @@ function openMedia(sceneId,index){
  const body=document.createDocumentFragment();
  if(m.type==='photo'){
   const image=document.createElement('img');image.src='./'+m.src;
-  image.alt=m.label;image.decoding='async';body.append(image);
+  image.alt=m.hotspot?.text||m.label;image.decoding='async';body.append(image);
+  if(m.hotspot?.description){
+   const desc=document.createElement('p');desc.className='media-dialog-description';
+   desc.textContent=m.hotspot.description;body.append(desc);
+  }
  }else if(m.type==='video-link'&&safeExternalUrl(m.url)){
   const p=document.createElement('p');p.textContent='動画は別のタブで開きます。';body.append(p);
   const a=document.createElement('a');a.href=m.url;a.target='_blank';a.rel='noopener noreferrer';
   a.textContent='動画を開く ↗';a.className='media-dialog-link';body.append(a);
  }else return;
- el.mediaDialogTitle.textContent=m.label;
+ // Match the heading to the text shown on the panorama hotspot.
+ el.mediaDialogTitle.textContent=m.hotspot?.text||m.label;
  el.mediaDialogBody.replaceChildren(body);
  if(!el.mediaDialog.open)el.mediaDialog.showModal();
 }

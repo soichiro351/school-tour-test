@@ -48,7 +48,9 @@ export function validateTour(tour) {
           : safeExternalUrl(m.url));
         const validSpot = !obj(m) || m.hotspot===undefined || (
           obj(m.hotspot) && named(m.hotspot.text) &&
-          num(m.hotspot.yaw,-180,180) && num(m.hotspot.pitch,-90,90));
+          num(m.hotspot.yaw,-180,180) && num(m.hotspot.pitch,-90,90) &&
+          (m.hotspot.description===undefined ||
+           (m.type==='photo' && typeof m.hotspot.description==='string' && m.hotspot.description.length<=500)));
         if (!validKind || !named(m.label) || !validSource || !validSpot)
           errors.push(`${loc}.media[${j}] が不正です。`);
       });

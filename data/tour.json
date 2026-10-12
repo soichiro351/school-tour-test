@@ -100,7 +100,8 @@
           "hotspot": {
             "yaw": -62.2,
             "pitch": 7.6,
-            "text": "デモ用画像"
+            "text": "デモ用画像",
+            "description": "デモ用です。\nう\nま\nく\nいってる？"
           }
         }
       ]
