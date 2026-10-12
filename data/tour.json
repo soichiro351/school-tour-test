@@ -1,6 +1,18 @@
 {
   "schemaVersion": 1,
   "startSceneId": "entrance",
+  "maps": [
+    {
+      "id": "floor1",
+      "name": "1階",
+      "image": "assets/maps/demo-floor1.png"
+    },
+    {
+      "id": "floor2",
+      "name": "2階",
+      "image": "assets/maps/demo-floor2.png"
+    }
+  ],
   "scenes": [
     {
       "id": "entrance",
@@ -92,19 +104,18 @@
           "targetPitch": 0
         }
       ],
-      "media": []
-    }
-  ],
-  "maps": [
-    {
-      "id": "floor1",
-      "name": "1階",
-      "image": "assets/maps/demo-floor1.png"
-    },
-    {
-      "id": "floor2",
-      "name": "2階",
-      "image": "assets/maps/demo-floor2.png"
+      "media": [
+        {
+          "type": "photo",
+          "label": "demo",
+          "src": "assets/photos/demo-photo.jpg",
+          "hotspot": {
+            "yaw": -62.2,
+            "pitch": 7.6,
+            "text": "デモ用画像"
+          }
+        }
+      ]
     }
   ]
 }
