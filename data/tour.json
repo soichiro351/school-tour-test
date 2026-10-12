@@ -5,39 +5,106 @@
     {
       "id": "entrance",
       "name": "玄関（テスト地点1）",
-      "description": "ここは試作用の架空の玄関です。実際の校舎を撮影した画像ではありません。矢印または地点一覧から廊下へ移動できます。",
+      "description": "ここは試作用の架空の玄関です。表示・移動の検証専用であり、実際の校舎写真ではありません。",
       "panorama": "assets/panoramas/entrance.jpg",
       "preview": "assets/previews/entrance.jpg",
-      "initialView": {"yaw": 0, "pitch": 0, "hfov": 95},
+      "mapId": "floor1",
+      "mapPosition": {
+        "x": 0.23,
+        "y": 0.76
+      },
+      "initialView": {
+        "yaw": 0,
+        "pitch": 0,
+        "hfov": 95
+      },
       "links": [
-        {"to": "corridor", "label": "廊下へ移動", "yaw": 2, "pitch": -6, "targetYaw": 0, "targetPitch": 0}
+        {
+          "to": "corridor",
+          "label": "廊下へ移動",
+          "yaw": 2,
+          "pitch": -6,
+          "targetYaw": 0,
+          "targetPitch": 0
+        }
       ],
       "media": []
     },
     {
       "id": "corridor",
       "name": "廊下（テスト地点2）",
-      "description": "複数の移動先を持つ地点の試験です。玄関に戻る、または理科室へ入ることができます。",
+      "description": "1階の廊下を想定した試作地点です。玄関に戻るか、理科室へ移動できます。",
       "panorama": "assets/panoramas/corridor.jpg",
       "preview": "assets/previews/corridor.jpg",
-      "initialView": {"yaw": 0, "pitch": 0, "hfov": 95},
+      "mapId": "floor1",
+      "mapPosition": {
+        "x": 0.53,
+        "y": 0.48
+      },
+      "initialView": {
+        "yaw": 0,
+        "pitch": 0,
+        "hfov": 95
+      },
       "links": [
-        {"to": "entrance", "label": "玄関へ戻る", "yaw": 170, "pitch": -7, "targetYaw": 0, "targetPitch": 0},
-        {"to": "science-room", "label": "理科室へ移動", "yaw": 43, "pitch": -6, "targetYaw": -30, "targetPitch": 0}
+        {
+          "to": "entrance",
+          "label": "玄関へ戻る",
+          "yaw": 170,
+          "pitch": -7,
+          "targetYaw": 0,
+          "targetPitch": 0
+        },
+        {
+          "to": "science-room",
+          "label": "理科室へ移動",
+          "yaw": 43,
+          "pitch": -6,
+          "targetYaw": -30,
+          "targetPitch": 0
+        }
       ],
       "media": []
     },
     {
       "id": "science-room",
       "name": "理科室（テスト地点3）",
-      "description": "教室の説明文を表示する例です。三脚の真下に向けると、テスト用の天底パッチが確認できます。",
+      "description": "2階の理科室を想定した試作地点です。地図で階を切り替える動作を確認します。",
       "panorama": "assets/panoramas/science-room.jpg",
       "preview": "assets/previews/science-room.jpg",
-      "initialView": {"yaw": -30, "pitch": 0, "hfov": 95},
+      "mapId": "floor2",
+      "mapPosition": {
+        "x": 0.73,
+        "y": 0.36
+      },
+      "initialView": {
+        "yaw": -30,
+        "pitch": 0,
+        "hfov": 95
+      },
       "links": [
-        {"to": "corridor", "label": "廊下へ戻る", "yaw": 145, "pitch": -6, "targetYaw": 0, "targetPitch": 0}
+        {
+          "to": "corridor",
+          "label": "廊下へ戻る",
+          "yaw": 145,
+          "pitch": -6,
+          "targetYaw": 0,
+          "targetPitch": 0
+        }
       ],
       "media": []
+    }
+  ],
+  "maps": [
+    {
+      "id": "floor1",
+      "name": "1階",
+      "image": "assets/maps/demo-floor1.png"
+    },
+    {
+      "id": "floor2",
+      "name": "2階",
+      "image": "assets/maps/demo-floor2.png"
     }
   ]
 }
