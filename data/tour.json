@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "startSceneId": "entrance",
+  "scenes": [
+    {
+      "id": "entrance",
+      "name": "玄関（テスト地点1）",
+      "description": "ここは試作用の架空の玄関です。実際の校舎を撮影した画像ではありません。矢印または地点一覧から廊下へ移動できます。",
+      "panorama": "assets/panoramas/entrance.jpg",
+      "preview": "assets/previews/entrance.jpg",
+      "initialView": {"yaw": 0, "pitch": 0, "hfov": 95},
+      "links": [
+        {"to": "corridor", "label": "廊下へ移動", "yaw": 2, "pitch": -6, "targetYaw": 0, "targetPitch": 0}
+      ],
+      "media": []
+    },
+    {
+      "id": "corridor",
+      "name": "廊下（テスト地点2）",
+      "description": "複数の移動先を持つ地点の試験です。玄関に戻る、または理科室へ入ることができます。",
+      "panorama": "assets/panoramas/corridor.jpg",
+      "preview": "assets/previews/corridor.jpg",
+      "initialView": {"yaw": 0, "pitch": 0, "hfov": 95},
+      "links": [
+        {"to": "entrance", "label": "玄関へ戻る", "yaw": 170, "pitch": -7, "targetYaw": 0, "targetPitch": 0},
+        {"to": "science-room", "label": "理科室へ移動", "yaw": 43, "pitch": -6, "targetYaw": -30, "targetPitch": 0}
+      ],
+      "media": []
+    },
+    {
+      "id": "science-room",
+      "name": "理科室（テスト地点3）",
+      "description": "教室の説明文を表示する例です。三脚の真下に向けると、テスト用の天底パッチが確認できます。",
+      "panorama": "assets/panoramas/science-room.jpg",
+      "preview": "assets/previews/science-room.jpg",
+      "initialView": {"yaw": -30, "pitch": 0, "hfov": 95},
+      "links": [
+        {"to": "corridor", "label": "廊下へ戻る", "yaw": 145, "pitch": -6, "targetYaw": 0, "targetPitch": 0}
+      ],
+      "media": []
+    }
+  ]
+}
