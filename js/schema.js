@@ -42,9 +42,15 @@ export function validateTour(tour) {
     if (s.media!==undefined) {
       if (!Array.isArray(s.media) || s.media.length>20) errors.push(`${loc}.media が不正です。`);
       else s.media.forEach((m,j)=>{
-        if (!obj(m) || !named(m.label) ||
-           (m.type==='photo' ? !assetPath(m.src) || !m.src.startsWith('assets/photos/') :
-            m.type==='video-link' ? !safeExternalUrl(m.url) : true)) errors.push(`${loc}.media[${j}] が不正です。`);
+        const validKind = obj(m) && (m.type==='photo' || m.type==='video-link');
+        const validSource = validKind && (
+          m.type==='photo' ? assetPath(m.src) && m.src.startsWith('assets/photos/') && /\.(?:jpe?g|png)$/i.test(m.src)
+          : safeExternalUrl(m.url));
+        const validSpot = !obj(m) || m.hotspot===undefined || (
+          obj(m.hotspot) && named(m.hotspot.text) &&
+          num(m.hotspot.yaw,-180,180) && num(m.hotspot.pitch,-90,90));
+        if (!validKind || !named(m.label) || !validSource || !validSpot)
+          errors.push(`${loc}.media[${j}] が不正です。`);
       });
     }
   }

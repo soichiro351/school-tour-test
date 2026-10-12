@@ -1,18 +1,6 @@
 {
   "schemaVersion": 1,
   "startSceneId": "entrance",
-  "maps": [
-    {
-      "id": "floor1",
-      "name": "1階",
-      "image": "assets/maps/demo-floor1.png"
-    },
-    {
-      "id": "floor2",
-      "name": "2階",
-      "image": "assets/maps/demo-floor2.png"
-    }
-  ],
   "scenes": [
     {
       "id": "entrance",
@@ -116,6 +104,18 @@
           }
         }
       ]
+    }
+  ],
+  "maps": [
+    {
+      "id": "floor1",
+      "name": "1階",
+      "image": "assets/maps/demo-floor1.png"
+    },
+    {
+      "id": "floor2",
+      "name": "2階",
+      "image": "assets/maps/demo-floor2.png"
     }
   ]
 }
