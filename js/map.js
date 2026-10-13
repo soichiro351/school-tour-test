@@ -12,7 +12,7 @@ export function createMapController(tour, {panel,toggle,close,floors,stage,image
   }
   function showMap(id) {
     const map=byId(id);if(!map)return;
-    selectedMap=id; image.src='./'+map.image;image.alt=`${map.name}の校内マップ（模式図）`;
+    selectedMap=id; image.src='./'+map.image;image.alt=`${map.name}のエリア図`;
     const fragment=document.createDocumentFragment();
     for(const scene of tour.scenes.filter(s=>s.mapId===id && s.mapPosition)) {
       const b=document.createElement('button');b.type='button';b.className='map-marker';

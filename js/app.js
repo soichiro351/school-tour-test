@@ -1,6 +1,6 @@
 import {validateTour,safeExternalUrl} from './schema.js?v=1.6';
 import {createTourViewer} from './viewer.js';
-import {createMapController} from './map.js';
+import {createMapController} from './map.js?v=2.1';
 const $=id=>document.getElementById(id);
 const el={panel:$('scene-panel'),menu:$('menu-toggle'),close:$('close-panel'),list:$('scene-list'),
  title:$('scene-name'),caption:$('scene-caption'),description:$('scene-description'),links:$('scene-links'),

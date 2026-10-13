@@ -8,7 +8,7 @@
       "description": "ここは試作用の架空の玄関です。表示・移動の検証専用であり、実際の校舎写真ではありません。",
       "panorama": "assets/panoramas/entrance.jpg",
       "preview": "assets/previews/entrance.jpg",
-      "mapId": "floor1",
+      "mapId": "school-building",
       "mapPosition": {
         "x": 0.6,
         "y": 0.637
@@ -32,11 +32,11 @@
     },
     {
       "id": "corridor",
-      "name": "中庭（テスト地点2）",
+      "name": "中庭",
       "description": "1階の廊下を想定した試作地点です。玄関に戻るか、理科室へ移動できます。",
       "panorama": "assets/panoramas/courtyard.jpg",
       "preview": "assets/previews/courtyard.jpg",
-      "mapId": "floor1",
+      "mapId": "school-building",
       "mapPosition": {
         "x": 0.402,
         "y": 0.574
@@ -50,20 +50,149 @@
         {
           "to": "entrance",
           "label": "玄関へ戻る",
-          "yaw": 170,
-          "pitch": -7,
+          "yaw": -119.2,
+          "pitch": -1.9,
           "targetYaw": 0,
           "targetPitch": 0
         },
         {
           "to": "science-room",
           "label": "理科室へ移動",
-          "yaw": 43,
-          "pitch": -6,
+          "yaw": 82.5,
+          "pitch": 14.6,
           "targetYaw": -30,
+          "targetPitch": 0
+        },
+        {
+          "to": "classroom",
+          "label": "教室へ",
+          "yaw": 163.5,
+          "pitch": 15.3,
+          "targetYaw": 0,
           "targetPitch": 0
         }
       ],
+      "media": []
+    },
+    {
+      "id": "classroom",
+      "name": "教室",
+      "description": "",
+      "panorama": "assets/panoramas/classroom.jpg",
+      "preview": "assets/previews/classroom.jpg",
+      "mapId": "school-building",
+      "mapPosition": {
+        "x": 0.403,
+        "y": 0.51
+      },
+      "initialView": {
+        "yaw": 0,
+        "pitch": 0,
+        "hfov": 95
+      },
+      "links": [
+        {
+          "to": "gym",
+          "label": "体育館へ",
+          "yaw": 50.9,
+          "pitch": -9.6,
+          "targetYaw": 0,
+          "targetPitch": 0
+        },
+        {
+          "to": "corridor",
+          "label": "中庭へ",
+          "yaw": -53.4,
+          "pitch": -5.7,
+          "targetYaw": 0,
+          "targetPitch": 0
+        }
+      ],
+      "media": []
+    },
+    {
+      "id": "ground",
+      "name": "グラウンド",
+      "description": "",
+      "panorama": "assets/panoramas/ground.jpg",
+      "preview": "assets/previews/ground.jpg",
+      "mapId": "school-building",
+      "mapPosition": {
+        "x": 0.606,
+        "y": 0.31
+      },
+      "initialView": {
+        "yaw": 0,
+        "pitch": 0,
+        "hfov": 95
+      },
+      "links": [],
+      "media": []
+    },
+    {
+      "id": "gym",
+      "name": "体育館",
+      "description": "",
+      "panorama": "assets/panoramas/gym.jpg",
+      "preview": "assets/previews/gym.jpg",
+      "mapId": "school-building",
+      "mapPosition": {
+        "x": 0.221,
+        "y": 0.314
+      },
+      "initialView": {
+        "yaw": 0,
+        "pitch": 0,
+        "hfov": 95
+      },
+      "links": [
+        {
+          "to": "classroom",
+          "label": "教室へ",
+          "yaw": 12.7,
+          "pitch": -5.9,
+          "targetYaw": 0,
+          "targetPitch": 0
+        }
+      ],
+      "media": []
+    },
+    {
+      "id": "learning-center",
+      "name": "学習センター",
+      "description": "",
+      "panorama": "assets/panoramas/learning-center.jpg",
+      "preview": "assets/previews/learning-center.jpg",
+      "mapId": "school-building",
+      "mapPosition": {
+        "x": 0.751,
+        "y": 0.612
+      },
+      "initialView": {
+        "yaw": 0,
+        "pitch": 0,
+        "hfov": 95
+      },
+      "links": [],
+      "media": []
+    },
+    {
+      "id": "library",
+      "name": "図書館",
+      "description": "",
+      "panorama": "assets/panoramas/library.jpg",
+      "preview": "assets/previews/library.jpg",
+      "mapId": "school-building",
+      "mapPosition": {
+        "x": 0.733,
+        "y": 0.509
+      },
+      "initialView": {
+        "yaw": 0,
+        "pitch": 0,
+        "hfov": 95
+      },
+      "links": [],
       "media": []
     },
     {
@@ -72,10 +201,10 @@
       "description": "2階の理科室を想定した試作地点です。地図で階を切り替える動作を確認します。",
       "panorama": "assets/panoramas/science-room.jpg",
       "preview": "assets/previews/science-room.jpg",
-      "mapId": "floor2",
+      "mapId": "around-the-school",
       "mapPosition": {
-        "x": 0.409,
-        "y": 0.552
+        "x": 0.404,
+        "y": 0.559
       },
       "initialView": {
         "yaw": -30,
@@ -109,13 +238,13 @@
   ],
   "maps": [
     {
-      "id": "floor1",
-      "name": "1階",
+      "id": "school-building",
+      "name": "校舎",
       "image": "assets/maps/school-building.png"
     },
     {
-      "id": "floor2",
-      "name": "2階",
+      "id": "around-the-school",
+      "name": "学校周辺",
       "image": "assets/maps/around-the-school.png"
     }
   ]

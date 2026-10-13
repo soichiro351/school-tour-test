@@ -2,19 +2,19 @@
 <html lang="ja">
 <head>
  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
- <meta name="theme-color" content="#0e2034"><meta name="description" content="360°スクールツアー・校内マップ付き試作サイト">
+ <meta name="theme-color" content="#0e2034"><meta name="description" content="360°スクールツアー・エリアマップ付き試作サイト">
  <title>360°スクールツアー｜試作版</title>
  <link rel="stylesheet" href="./vendor/pannellum/2.5.7/pannellum.css">
  <link rel="stylesheet" href="./css/style.css?v=1.6">
  <script defer src="./vendor/pannellum/2.5.7/pannellum.js"></script>
- <script type="module" src="./js/app.js?v=1.6"></script>
+ <script type="module" src="./js/app.js?v=2.1"></script>
 </head>
 <body>
 <div class="layout">
  <header class="site-header">
   <div class="brand"><div class="brand-mark" aria-hidden="true">360°</div><div><div class="brand-top">VIRTUAL CAMPUS TOUR <span class="prototype-tag">試作版</span></div><div class="brand-name">スクールツアー</div></div></div>
   <div class="header-actions">
-   <button type="button" id="map-toggle" class="top-button" aria-controls="map-panel" aria-expanded="false"><span aria-hidden="true">⌖</span> 校内マップ</button>
+   <button type="button" id="map-toggle" class="top-button" aria-controls="map-panel" aria-expanded="false"><span aria-hidden="true">⌖</span> エリアマップ</button>
    <button type="button" id="menu-toggle" class="top-button" aria-controls="scene-panel" aria-expanded="false"><span aria-hidden="true">☷</span> 地点一覧</button>
   </div>
  </header>
@@ -38,15 +38,15 @@
  <aside id="scene-panel" class="side-panel" aria-label="撮影地点一覧" hidden>
   <div class="panel-heading"><div><small>EXPLORE</small><h2>撮影地点一覧</h2></div><button type="button" id="close-panel" class="close-button" aria-label="地点一覧を閉じる">✕</button></div>
   <p>行きたい場所を選択すると、その地点へ移動します。</p><nav id="scene-list" class="scene-list" aria-label="撮影地点を選択"></nav>
-  <div class="panel-foot">表示中の画像とマップは架空の試作データです。</div>
+  <div class="panel-foot">画像・説明文の公開内容は学校が確認した情報に従います。</div>
  </aside>
- <aside id="map-panel" class="side-panel map-panel" aria-label="校内マップ" hidden>
-  <div class="panel-heading"><div><small>CAMPUS MAP</small><h2>校内マップ</h2></div><button type="button" id="close-map" class="close-button" aria-label="校内マップを閉じる">✕</button></div>
-  <p>階を選び、地図上のマーカーから撮影地点へ移動できます。</p>
-  <div id="map-floors" class="map-floors" role="group" aria-label="階の切り替え"></div>
+ <aside id="map-panel" class="side-panel map-panel" aria-label="エリアマップ" hidden>
+  <div class="panel-heading"><div><small>CAMPUS MAP</small><h2>エリアマップ</h2></div><button type="button" id="close-map" class="close-button" aria-label="校内マップを閉じる">✕</button></div>
+  <p>エリアを選び、地図上のマーカーから撮影地点へ移動できます。</p>
+  <div id="map-floors" class="map-floors" role="group" aria-label="エリアの切り替え"></div>
   <div id="map-stage" class="map-stage"><img id="map-image" alt="校内マップ" decoding="async"><div id="map-markers" class="map-markers"></div></div>
   <div class="map-legend"><span class="legend-dot"></span>閲覧中の地点は緑色で表示</div>
-  <div class="panel-foot">地図は試作用の模式図です。実際の学校の構造ではありません。</div>
+  <div class="panel-foot">エリア図と撮影地点の位置を確認して移動できます。</div>
  </aside>
 </div>
 <noscript>このサイトにはJavaScriptが必要です。</noscript>
