@@ -1,18 +1,6 @@
 {
   "schemaVersion": 1,
   "startSceneId": "entrance",
-  "maps": [
-    {
-      "id": "floor1",
-      "name": "1階",
-      "image": "assets/maps/around-the-school.png"
-    },
-    {
-      "id": "floor2",
-      "name": "2階",
-      "image": "assets/maps/demo-floor2.png"
-    }
-  ],
   "scenes": [
     {
       "id": "entrance",
@@ -22,8 +10,8 @@
       "preview": "assets/previews/entrance.jpg",
       "mapId": "floor1",
       "mapPosition": {
-        "x": 0.475,
-        "y": 0.62
+        "x": 0.6,
+        "y": 0.637
       },
       "initialView": {
         "yaw": 0,
@@ -44,14 +32,14 @@
     },
     {
       "id": "corridor",
-      "name": "廊下（テスト地点2）",
+      "name": "中庭（テスト地点2）",
       "description": "1階の廊下を想定した試作地点です。玄関に戻るか、理科室へ移動できます。",
-      "panorama": "assets/panoramas/corridor.jpg",
-      "preview": "assets/previews/corridor.jpg",
+      "panorama": "assets/panoramas/courtyard.jpg",
+      "preview": "assets/previews/courtyard.jpg",
       "mapId": "floor1",
       "mapPosition": {
-        "x": 0.45,
-        "y": 0.56
+        "x": 0.402,
+        "y": 0.574
       },
       "initialView": {
         "yaw": 0,
@@ -84,10 +72,10 @@
       "description": "2階の理科室を想定した試作地点です。地図で階を切り替える動作を確認します。",
       "panorama": "assets/panoramas/science-room.jpg",
       "preview": "assets/previews/science-room.jpg",
-      "mapId": "floor1",
+      "mapId": "floor2",
       "mapPosition": {
-        "x": 0.35,
-        "y": 0.54
+        "x": 0.409,
+        "y": 0.552
       },
       "initialView": {
         "yaw": -30,
@@ -117,6 +105,18 @@
           }
         }
       ]
+    }
+  ],
+  "maps": [
+    {
+      "id": "floor1",
+      "name": "1階",
+      "image": "assets/maps/school-building.png"
+    },
+    {
+      "id": "floor2",
+      "name": "2階",
+      "image": "assets/maps/around-the-school.png"
     }
   ]
 }
