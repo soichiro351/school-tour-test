@@ -2,30 +2,30 @@
 <html lang="ja">
 <head>
  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
- <meta name="theme-color" content="#0e2034"><meta name="description" content="360°スクールツアー・エリアマップ付き試作サイト">
- <title>360°スクールツアー｜試作版</title>
+ <meta name="theme-color" content="#0e2034"><meta name="description" content="校舎・学校周辺などの施設を、エリアマップから選んで360°で見学できる学校案内">
+ <title>360°学校案内</title>
  <link rel="stylesheet" href="./vendor/pannellum/2.5.7/pannellum.css">
- <link rel="stylesheet" href="./css/style.css?v=1.6">
+ <link rel="stylesheet" href="./css/style.css?v=2.7">
  <script defer src="./vendor/pannellum/2.5.7/pannellum.js"></script>
- <script type="module" src="./js/app.js?v=2.1"></script>
+ <script type="module" src="./js/app.js?v=2.7"></script>
 </head>
 <body>
 <div class="layout">
  <header class="site-header">
-  <div class="brand"><div class="brand-mark" aria-hidden="true">360°</div><div><div class="brand-top">VIRTUAL CAMPUS TOUR <span class="prototype-tag">試作版</span></div><div class="brand-name">スクールツアー</div></div></div>
+  <div class="brand"><div class="brand-mark" aria-hidden="true">360°</div><div><div class="brand-top">MAP &amp; 360° GUIDE</div><div class="brand-name">360°学校案内</div></div></div>
   <div class="header-actions">
-   <button type="button" id="map-toggle" class="top-button" aria-controls="map-panel" aria-expanded="false"><span aria-hidden="true">⌖</span> エリアマップ</button>
+   <button type="button" id="map-toggle" class="top-button" aria-controls="map-panel" aria-expanded="false"><span aria-hidden="true">⌖</span> <span id="map-toggle-label">マップを表示</span><span class="map-toggle-short" aria-hidden="true">マップ</span></button>
    <button type="button" id="menu-toggle" class="top-button" aria-controls="scene-panel" aria-expanded="false"><span aria-hidden="true">☷</span> 地点一覧</button>
   </div>
  </header>
  <main class="viewer-section" id="main">
   <div id="panorama" aria-label="360度パノラマビューア。マウスやタッチで方向を変えられます。"></div>
-  <div id="intro-message" class="intro-message" aria-hidden="true"><div class="intro-compass">✦</div>自由に見渡せる学校案内<small>画像上の矢印で移動できます</small></div>
+  <div id="intro-message" class="intro-message" aria-hidden="true"><div class="intro-compass">✦</div>見たい施設を選ぶ360°案内<small>エリアマップから施設を選べます</small></div>
   <div class="viewer-corner"><span class="tiny-pulse"></span> 360° PANORAMA</div>
   <div id="loading-status" class="loading-status" role="status" aria-live="polite" aria-busy="true">設定を読み込んでいます…</div>
   <div id="error-banner" class="error-banner" role="alert" hidden><span id="error-text"></span><button id="retry-button" type="button">再読み込み</button></div>
   <section class="information-card" aria-labelledby="scene-name">
-   <div class="scene-indicator" id="scene-caption">試作データ</div><h1 id="scene-name">360°スクールツアー</h1>
+   <div class="scene-indicator" id="scene-caption">施設案内</div><h1 id="scene-name">360°学校案内</h1>
    <p id="scene-description">読み込み中です。</p><div id="scene-links" class="quick-links" aria-label="この地点から移動"></div>
    <div id="scene-media" class="scene-media" hidden></div>
   </section>
@@ -41,11 +41,13 @@
   <div class="panel-foot">画像・説明文の公開内容は学校が確認した情報に従います。</div>
  </aside>
  <aside id="map-panel" class="side-panel map-panel" aria-label="エリアマップ" hidden>
-  <div class="panel-heading"><div><small>CAMPUS MAP</small><h2>エリアマップ</h2></div><button type="button" id="close-map" class="close-button" aria-label="校内マップを閉じる">✕</button></div>
-  <p>エリアを選び、地図上のマーカーから撮影地点へ移動できます。</p>
+  <div class="panel-heading"><div><small>CAMPUS MAP</small><h2>エリアマップ</h2></div><button type="button" id="close-map" class="close-button" aria-label="エリアマップを閉じる">✕</button></div>
+  <p>見たい場所を地図上の番号、または下の地点名から選んでください。</p>
   <div id="map-floors" class="map-floors" role="group" aria-label="エリアの切り替え"></div>
-  <div id="map-stage" class="map-stage"><img id="map-image" alt="校内マップ" decoding="async"><div id="map-markers" class="map-markers"></div></div>
-  <div class="map-legend"><span class="legend-dot"></span>閲覧中の地点は緑色で表示</div>
+  <div id="map-stage" class="map-stage"><img id="map-image" alt="エリア図" decoding="async"><div id="map-markers" class="map-markers"></div></div>
+  <div class="map-legend"><span class="legend-dot"></span>緑色は現在表示している地点です。</div>
+  <nav id="map-scene-list" class="map-scene-list" aria-label="このエリアの撮影地点"></nav>
+  <p id="map-empty" class="map-empty" hidden>このエリアに撮影地点はありません。上部の「地点一覧」から探せます。</p>
   <div class="panel-foot">エリア図と撮影地点の位置を確認して移動できます。</div>
  </aside>
 </div>

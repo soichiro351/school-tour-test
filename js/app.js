@@ -1,6 +1,6 @@
 import {validateTour,safeExternalUrl} from './schema.js?v=1.6';
 import {createTourViewer} from './viewer.js';
-import {createMapController} from './map.js?v=2.1';
+import {createMapController} from './map.js?v=2.7';
 const $=id=>document.getElementById(id);
 const el={panel:$('scene-panel'),menu:$('menu-toggle'),close:$('close-panel'),list:$('scene-list'),
  title:$('scene-name'),caption:$('scene-caption'),description:$('scene-description'),links:$('scene-links'),
@@ -9,8 +9,14 @@ const el={panel:$('scene-panel'),menu:$('menu-toggle'),close:$('close-panel'),li
 let tour,viewer,map;
 function setStatus(msg,busy=false){el.status.textContent=msg;el.status.hidden=!msg;el.status.setAttribute('aria-busy',String(busy));}
 function showError(msg){el.error.hidden=false;el.errorText.textContent=msg;setStatus('');}
-function panel(open){el.panel.hidden=!open;el.menu.setAttribute('aria-expanded',String(open));
- if(open){map?.close();el.close.focus();}else el.menu.focus();}
+function panel(open,returnFocus=true){
+ el.panel.hidden=!open;el.menu.setAttribute('aria-expanded',String(open));
+ if(open){
+  // On small screens there is space for only one bottom sheet.
+  if(window.matchMedia('(max-width:899px)').matches)map?.close();
+  el.close.focus();
+ }else if(returnFocus)el.menu.focus();
+}
 function action(label,cb,cls){const b=document.createElement('button');b.type='button';b.textContent=label;b.className=cls;b.addEventListener('click',cb);return b;}
 function list(){const f=document.createDocumentFragment();tour.scenes.forEach(s=>{
  const b=action(s.name,()=>change(s.id,true),'scene-choice');b.dataset.sceneId=s.id;f.append(b);
@@ -31,16 +37,14 @@ function openMedia(sceneId,index){
   const a=document.createElement('a');a.href=m.url;a.target='_blank';a.rel='noopener noreferrer';
   a.textContent='動画を開く ↗';a.className='media-dialog-link';body.append(a);
  }else return;
- // Match the heading to the text shown on the panorama hotspot.
  el.mediaDialogTitle.textContent=m.hotspot?.text||m.label;
  el.mediaDialogBody.replaceChildren(body);
  if(!el.mediaDialog.open)el.mediaDialog.showModal();
 }
 function renderMedia(s){const f=document.createDocumentFragment();for(const m of s.media??[]){
- if(m.hotspot)continue; // Placed items appear on the panorama instead of twice.
-
+ if(m.hotspot)continue;
  if(m.type==='photo'){const img=document.createElement('img');img.src='./'+m.src;img.alt=m.label;img.loading='lazy';f.append(img);}
- if(m.type==='video-link' && safeExternalUrl(m.url)){const a=document.createElement('a');a.href=m.url;a.textContent=`動画を見る：${m.label}`;a.target='_blank';a.rel='noopener noreferrer';f.append(a);}
+ if(m.type==='video-link'&&safeExternalUrl(m.url)){const a=document.createElement('a');a.href=m.url;a.textContent=`動画を見る：${m.label}`;a.target='_blank';a.rel='noopener noreferrer';f.append(a);}
 }const has=f.childNodes.length>0;el.media.replaceChildren(f);el.media.hidden=!has;}
 function updateScene(id){const s=tour.scenes.find(s=>s.id===id);if(!s)return;
  if(el.mediaDialog.open)el.mediaDialog.close();
@@ -53,22 +57,24 @@ function updateScene(id){const s=tour.scenes.find(s=>s.id===id);if(!s)return;
  const u=new URL(location.href);u.searchParams.set('scene',id);history.replaceState(null,'',u);
  setStatus('360°画像を読み込んでいます…',true);
 }
-function change(id,closePanel=false){if(!tour.scenes.some(s=>s.id===id))return;if(closePanel&&!el.panel.hidden)panel(false);viewer?.changeScene(id);}
+function change(id,closePanel=false){if(!tour.scenes.some(s=>s.id===id))return;if(closePanel&&!el.panel.hidden)panel(false,false);viewer?.changeScene(id);}
 async function start(){
  el.menu.addEventListener('click',()=>panel(el.panel.hidden));el.close.addEventListener('click',()=>panel(false));
  el.retry.addEventListener('click',()=>location.reload());
  el.mediaDialogClose.addEventListener('click',()=>el.mediaDialog.close());
  el.mediaDialog.addEventListener('close',()=>el.mediaDialogBody.replaceChildren());
  el.mediaDialog.addEventListener('click',event=>{if(event.target===el.mediaDialog)el.mediaDialog.close();});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!el.panel.hidden)panel(false);else map?.close();}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!el.panel.hidden)panel(false);else map?.close({returnFocus:true});}});
  try{
   const response=await fetch('./data/tour.json',{cache:'no-cache'});if(!response.ok)throw new Error('設定JSON取得失敗（HTTP '+response.status+'）');
   tour=await response.json();const result=validateTour(tour);if(!result.ok)throw new Error('JSONが不正です：'+result.errors.slice(0,4).join(' / '));
   const requested=new URLSearchParams(location.search).get('scene');const first=tour.scenes.some(s=>s.id===requested)?requested:tour.startSceneId;
   list();map=createMapController(tour,{
     panel:$('map-panel'),toggle:$('map-toggle'),close:$('close-map'),floors:$('map-floors'),
-    stage:$('map-stage'),image:$('map-image'),markers:$('map-markers'),navigate:id=>change(id,false),
-    beforeOpen:()=>{if(!el.panel.hidden)panel(false);}
+    stage:$('map-stage'),image:$('map-image'),markers:$('map-markers'),sceneList:$('map-scene-list'),
+    navigate:id=>change(id,false),
+    beforeOpen:()=>{if(!el.panel.hidden)panel(false,false);},
+    onLayoutChange:()=>{requestAnimationFrame(()=>viewer?.resize());}
   });
   updateScene(first);
   viewer=createTourViewer('panorama',tour,first,{
@@ -77,6 +83,7 @@ async function start(){
     onLoaded:()=>{setStatus('');el.intro.hidden=true;},
     onError:()=>showError('360°画像の読み込みに失敗しました。通信状態や画像ファイルを確認してください。')
   });
+  if('ResizeObserver' in window){const observer=new ResizeObserver(()=>viewer?.resize());observer.observe($('panorama'));}
  }catch(err){showError(err.message||'起動に失敗しました。');el.intro.hidden=true;}
 }
 start();

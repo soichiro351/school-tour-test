@@ -54,3 +54,69 @@
  white-space:pre-wrap;overflow-wrap:anywhere;margin:15px 2px 0;}
 .media-dialog-link{display:inline-block;padding:10px 16px;background:#e6f5f0;border-radius:8px;
  font-weight:700;color:#145c50;text-decoration:none}
+
+/* v2.7: map-first facility directory. Tablet / desktop use a collapsible dock.
+   Only viewer geometry changes. Existing Pannellum, media and data stay intact. */
+@media (min-width:900px) {
+  .layout{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:82px minmax(0,1fr)}
+  .layout.map-open{grid-template-columns:minmax(0,1fr) minmax(320px, min(35vw,500px))}
+  .site-header{grid-column:1/-1;grid-row:1}
+  .viewer-section{grid-column:1;grid-row:2;min-width:0;min-height:0}
+  .side-panel:not(.map-panel){top:82px;z-index:20}
+  .map-panel{grid-column:2;grid-row:2;position:relative;inset:auto;width:100%;height:100%;
+    min-width:0;min-height:0;padding:22px 20px;box-shadow:-5px 0 24px #071b2530;
+    border-left:1px solid #d3e4e6;z-index:4}
+  .map-panel .panel-heading h2{font-size:21px}
+  .map-panel .panel-foot{margin-top:18px}
+}
+/* Numerals on the map prevent dozens of overlapping long location labels.
+   The adjoining list supplies full names, also for touch and keyboard users. */
+.map-panel .map-floors{margin-bottom:12px}
+.map-panel .floor-button{padding:9px 12px;min-height:40px}
+.map-panel .map-stage{background:#fff}
+.map-marker,.map-marker.selected{width:36px;height:36px;min-width:36px;min-height:36px;
+ display:grid;place-items:center;padding:0;max-width:none;font-size:13px;font-weight:800;
+ border-radius:50%;border:2px solid #fff;overflow:visible;text-overflow:clip;
+ box-shadow:0 2px 8px #071a2c70}
+.map-marker.selected{background:#168568;border-color:#fff;outline:3px solid #128465}
+.map-scene-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:14px}
+.map-scene-choice{display:flex;align-items:center;gap:8px;min-height:42px;padding:7px 9px;
+ border:1px solid #d6e4e6;border-radius:9px;background:#fff;text-align:left;
+ color:#19334a;font-weight:700;font-size:12px;min-width:0}
+.map-scene-choice.selected{background:#e3f4ee;border-color:#168568}
+.map-scene-choice:hover,.map-scene-choice:focus-visible{background:#e7f6f4}
+.map-choice-number{display:grid;place-items:center;flex:none;width:23px;height:23px;
+ border-radius:50%;background:#284961;color:#fff;font-size:11px}
+.map-scene-choice.selected .map-choice-number{background:#168568}
+.map-choice-name{min-width:0;overflow-wrap:anywhere}
+.map-legend{line-height:1.5}
+@media(max-width:899px){
+  /* A map-first bottom sheet is shown initially. Choosing a location closes it. */
+  .map-panel{z-index:18;top:auto;bottom:0;left:0;right:0;width:100%;height:min(65dvh,640px);
+    padding:17px 16px calc(14px + env(safe-area-inset-bottom));border-radius:18px 18px 0 0}
+  .side-panel:not(.map-panel){z-index:19}
+  .map-panel .panel-heading h2{font-size:20px}
+  .map-panel p{margin:6px 0 13px}
+  .map-panel .map-marker{width:34px;height:34px;min-width:34px;min-height:34px}
+  .map-panel .map-scene-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .map-panel .panel-foot{display:none}
+}
+@media(max-width:420px){
+  .header-actions{gap:5px}
+  .top-button{padding:8px;font-size:11px}
+  .map-panel{height:min(70dvh,650px)}
+}
+
+.map-toggle-short{display:none}
+.map-empty{padding:12px 10px;border-radius:8px;background:#e9f3f4;color:#426174;margin:12px 0}
+@media(max-width:420px){
+ .brand-name{font-size:15px;letter-spacing:0;white-space:nowrap}
+ .brand{flex-shrink:1;min-width:0}
+ .map-toggle-short{display:inline}
+ #map-toggle-label{display:none}
+ .top-button{white-space:nowrap;min-height:40px}
+ .header-actions{flex-shrink:0}
+}
+/* Long facility descriptions must not hide the panorama controls. */
+@media(min-width:900px){.information-card{max-height:min(55dvh,480px);overflow-y:auto}}
+@media(max-width:899px){.information-card{max-height:min(38dvh,290px);overflow-y:auto}}
